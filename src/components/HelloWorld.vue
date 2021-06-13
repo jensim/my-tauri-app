@@ -49,7 +49,7 @@ export default {
       try {
         let foo = await invoke('my_custom_command');
         console.log(`Something js ${foo}`);
-        this.foo = foo;
+        this.foo = `Tauri crates.io max_stable_version ${foo}`;
       }catch (e) {
         console.log(`ERR: ${e}`)
       }
