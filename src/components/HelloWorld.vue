@@ -13,12 +13,14 @@
     </ul>
     <h3>Essential Links</h3>
     <ul>
+      <li><button v-on:click="pow">INVOOOOKE!!</button></li>
       <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
       <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
       <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
       <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
       <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
     </ul>
+    <p>{{ foo }}</p>
     <h3>Ecosystem</h3>
     <ul>
       <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
@@ -31,10 +33,27 @@
 </template>
 
 <script>
+import {invoke} from '@tauri-apps/api/tauri'
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data: () => {
+    return {foo: "asdf"}
+  },
+  methods: {
+    async pow() {
+      console.log("Something js")
+      try {
+        let foo = await invoke('my_custom_command');
+        console.log(`Something js ${foo}`);
+        this.foo = foo;
+      }catch (e) {
+        console.log(`ERR: ${e}`)
+      }
+    }
   }
 }
 </script>
